@@ -1,10 +1,12 @@
 package com.example.managerapp
 
-import android.app.ActivityManager
+import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,8 +31,20 @@ class MainActivity : AppCompatActivity() {
         loadInstalledApps()
         appAdapter = AppAdapter(this, appList)
         recyclerViewApps.adapter = appAdapter
+
+        optimizeUI()
     }
 
+    /**
+     * Carrega os aplicativos instalados no dispositivo.
+     *
+     * Esta função utiliza o gerenciador de pacotes para obter uma lista de todos os aplicativos
+     * instalados e, em seguida, extrai informações relevantes, como nome, nome do pacote e ícone
+     * de cada aplicativo. As informações coletadas são armazenadas em uma lista de objetos AppInfo.
+     *
+     * @throws PackageManager.NameNotFoundException Se o gerenciador de pacotes não conseguir encontrar
+     * o nome do pacote de um aplicativo específico.
+     */
     private fun loadInstalledApps() {
         val packageManager: PackageManager = packageManager
         val installedApps: List<ApplicationInfo> = packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
@@ -45,6 +59,18 @@ class MainActivity : AppCompatActivity() {
             appList.add(app)
 
         }
+    }
+
+    /**
+     * @brief Ajusta o brilho da tela da janela atual e esconde a barra de navegação.
+     */
+    fun optimizeUI() {
+        //Otimização da UI com WindowManager
+        val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+
+        val layoutParams = window.attributes
+        layoutParams.screenBrightness = 0.5f // Define o brilho para 50%
+        layoutParams.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION //Esconde a barra de navegação
     }
 
     override fun onStart() {
