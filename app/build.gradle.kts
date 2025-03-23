@@ -51,7 +51,17 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.recyclerview)
+    implementation(libs.core.ktx)
     testImplementation(libs.junit)
+
+    testImplementation ("junit:junit:4.13.2")
+    testImplementation ("org.mockito:mockito-core:3.12.4")
+    testImplementation ("androidx.arch.core:core-testing:2.1.0")
+    testImplementation ("org.robolectric:robolectric:4.8")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
+    testImplementation("io.mockk:mockk:1.12.0")
+    androidTestImplementation ("androidx.test.espresso:espresso-core:3.4.0")
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
